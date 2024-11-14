@@ -3,6 +3,7 @@ package com.apinba.restapi.services;
 import com.apinba.restapi.models.TeamModel;
 import com.apinba.restapi.repositories.ITeamRepository;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class TeamService {
-  @Autowired ITeamRepository teamRepository;
+  private final ITeamRepository teamRepository;
 
-  public ArrayList<TeamModel> getTeams() {
-    return (ArrayList<TeamModel>) teamRepository.findAll();
+  public TeamService(ITeamRepository teamRepository) {
+    this.teamRepository = teamRepository;
+  }
+
+  public List<TeamModel> getTeams() {
+    return teamRepository.findAll();
   }
 
   public TeamModel saveTeam(TeamModel team) {
     return teamRepository.save(team);
   }
+
+  public List<TeamModel> savePlayersList(List<TeamModel> teams) { return teamRepository.saveAll(teams); }
 
   public Optional<TeamModel> getById(UUID id) {
     return teamRepository.findById(id);

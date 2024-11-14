@@ -1,28 +1,41 @@
 package com.apinba.restapi.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "team")
 public class TeamModel {
     @Id
-    @Column
     private UUID id = UUID.randomUUID();
-
-    @Column
     private String abbreviation;
-    @Column
+
     private String city;
-    @Column
+
     private String conference;
-    @Column
+
     private String division;
-    @Column
+
     private String full_name;
-    @Column
+
     private String name;
+
+    @OneToMany(mappedBy = "team", orphanRemoval = true)
+    private Set<PlayerModel> players = new LinkedHashSet<>();
+
+    public Set<PlayerModel> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<PlayerModel> players) {
+        this.players = players;
+    }
 
     public String getAbbreviation() {
         return abbreviation;

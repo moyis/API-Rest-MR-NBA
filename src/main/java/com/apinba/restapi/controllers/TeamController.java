@@ -1,28 +1,40 @@
 package com.apinba.restapi.controllers;
 
+import com.apinba.restapi.controllers.model.TeamDto;
+import com.apinba.restapi.models.PlayerModel;
 import com.apinba.restapi.models.TeamModel;
 import com.apinba.restapi.services.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/teams")
 public class TeamController {
-  @Autowired private TeamService teamService;
+  private final TeamService teamService;
+
+  public TeamController(TeamService teamService) {
+    this.teamService = teamService;
+  }
+
 
   @GetMapping
-  public ArrayList<TeamModel> getTeams() {
-    return this.teamService.getTeams();
+  public List<TeamDto> getTeams() {
+    return this.teamService.getTeams().stream().map(TeamDto::from).toList();
   }
 
   @PostMapping
-  public TeamModel saveTeam(@RequestBody TeamModel team) {
-    return this.teamService.saveTeam(team);
+  public TeamDto saveTeam(@RequestBody TeamModel team) {
+    var newTeam = teamService.saveTeam(team);
+    return TeamDto.from(newTeam);
+  }
+
+  @PostMapping("/batch")
+  public List<TeamDto> savePlayersList(@RequestBody List<TeamModel> teams){
+    return teamService.savePlayersList(teams).stream().map(TeamDto::from).toList();
   }
 
   @GetMapping(path = "/{id}")
