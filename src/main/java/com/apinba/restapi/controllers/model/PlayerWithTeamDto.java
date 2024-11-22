@@ -1,7 +1,6 @@
 package com.apinba.restapi.controllers.model;
 
 import com.apinba.restapi.models.PlayerModel;
-
 import java.util.UUID;
 
 public record PlayerWithTeamDto(

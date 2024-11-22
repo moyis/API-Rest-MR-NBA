@@ -1,10 +1,9 @@
 package com.apinba.restapi.models;
 
 import jakarta.persistence.*;
-import org.hibernate.proxy.HibernateProxy;
-
 import java.util.Objects;
 import java.util.UUID;
+import org.hibernate.proxy.HibernateProxy;
 
 @Entity
 @Table(name = "game")

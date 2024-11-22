@@ -3,11 +3,10 @@ package com.apinba.restapi.controllers;
 import com.apinba.restapi.controllers.model.GameDto;
 import com.apinba.restapi.models.GameModel;
 import com.apinba.restapi.services.GameService;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/games")
