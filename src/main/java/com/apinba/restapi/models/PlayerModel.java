@@ -1,10 +1,13 @@
 package com.apinba.restapi.models;
 
-import jakarta.persistence.*;
-import org.hibernate.proxy.HibernateProxy;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.util.Objects;
 import java.util.UUID;
+import org.hibernate.proxy.HibernateProxy;
 
 @Entity
 @Table(name = "player")

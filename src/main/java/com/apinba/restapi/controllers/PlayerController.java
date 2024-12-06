@@ -3,11 +3,15 @@ package com.apinba.restapi.controllers;
 import com.apinba.restapi.controllers.model.PlayerWithTeamDto;
 import com.apinba.restapi.models.PlayerModel;
 import com.apinba.restapi.services.PlayerService;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/players")

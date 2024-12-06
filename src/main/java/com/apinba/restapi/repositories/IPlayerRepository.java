@@ -1,13 +1,12 @@
 package com.apinba.restapi.repositories;
 
 import com.apinba.restapi.models.PlayerModel;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.UUID;
 
 @Repository
 public interface IPlayerRepository extends JpaRepository<PlayerModel, UUID> {
