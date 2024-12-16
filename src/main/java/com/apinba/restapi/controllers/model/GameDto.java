@@ -16,7 +16,7 @@ public record GameDto(
     boolean postseason,
     int homeTeamScore,
     int visitorTeamScore,
-    TeamDto localTeam,
+    TeamDto homeTeam,
     TeamDto visitorTeam) {
 
   public static GameDto from(GameModel game) {
@@ -30,7 +30,7 @@ public record GameDto(
         game.isPostseason(),
         game.getHome_team_score(),
         game.getVisitor_team_score(),
-        TeamDto.from(game.getLocal_team()),
+        TeamDto.from(game.getHome_team()),
         TeamDto.from(game.getVisitor_team()));
   }
 }

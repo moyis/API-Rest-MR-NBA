@@ -3,6 +3,8 @@ package com.apinba.restapi.services;
 import com.apinba.restapi.models.PlayerModel;
 import com.apinba.restapi.repositories.IPlayerRepository;
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,13 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
-    public Page<PlayerModel> getPlayers(Pageable pageable, String search){
-        if (search == null){
+    public Page<PlayerModel> getPlayers(Pageable pageable, String search, UUID teamId){
+        if (search == null && teamId == null){
             return playerRepository.findAll(pageable);
-        } else {
+        } else if (search != null && teamId == null) {
             return playerRepository.searchByName(search, pageable);
+        } else {
+            return playerRepository.findByTeamId(teamId, pageable);
         }
     }
 

@@ -4,15 +4,13 @@ import com.apinba.restapi.controllers.model.PlayerWithTeamDto;
 import com.apinba.restapi.models.PlayerModel;
 import com.apinba.restapi.services.PlayerService;
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/players")
 public class PlayerController {
@@ -22,8 +20,8 @@ public class PlayerController {
     }
 
     @GetMapping
-    public Page<PlayerWithTeamDto> getPlayers(Pageable pageable, @RequestParam(required = false) String search) {
-        return playerService.getPlayers(pageable, search).map(PlayerWithTeamDto::from);
+    public Page<PlayerWithTeamDto> getPlayers(Pageable pageable, @RequestParam(required = false) String search, @RequestParam(required = false) UUID teamId) {
+        return playerService.getPlayers(pageable, search, teamId).map(PlayerWithTeamDto::from);
     }
 
     @PostMapping

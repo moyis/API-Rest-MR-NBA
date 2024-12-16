@@ -22,14 +22,16 @@ public class GameModel {
     private boolean postseason;
     private int home_team_score;
     private int visitor_team_score;
-    @ManyToOne
-    @JoinColumn(name = "local_team_id")
-    private TeamModel local_team;
+
 
     @ManyToOne
     @JoinColumn(name = "visitor_team_id")
     private TeamModel visitor_team;
 
+
+    @ManyToOne
+    @JoinColumn(name = "home_team_id")
+    private TeamModel home_team;
 
     public GameModel() {
     }
@@ -48,6 +50,14 @@ public class GameModel {
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
+
+    public TeamModel getHome_team() {
+        return home_team;
+    }
+
+    public void setHome_team(TeamModel home_team) {
+        this.home_team = home_team;
     }
 
     public UUID getId() {
@@ -129,11 +139,5 @@ public class GameModel {
         this.visitor_team = visitor_team;
     }
 
-    public TeamModel getLocal_team() {
-        return local_team;
-    }
 
-    public void setLocal_team(TeamModel local_team) {
-        this.local_team = local_team;
-    }
 }

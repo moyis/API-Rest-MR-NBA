@@ -15,5 +15,8 @@ public interface IPlayerRepository extends JpaRepository<PlayerModel, UUID> {
             where upper(p.first_name) like upper(concat('%', :name, '%')) or upper(p.last_name) like upper(concat('%', :name, '%'))""")
     Page<PlayerModel> searchByName(String name, Pageable pageable);
 
-
+    @Query("""
+            select p from PlayerModel p
+            where p.team.id = :teamId""")
+    Page<PlayerModel> findByTeamId(UUID teamId, Pageable pageable);
 }

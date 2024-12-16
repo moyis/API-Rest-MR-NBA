@@ -9,7 +9,7 @@ CREATE TABLE game
     postseason         BIT(1)       NOT NULL,
     home_team_score    INT          NOT NULL,
     visitor_team_score INT          NOT NULL,
-    local_team_id      BINARY(16)   NOT NULL,
+    home_team_id      BINARY(16)   NOT NULL,
     visitor_team_id    BINARY(16)   NOT NULL,
     CONSTRAINT pk_game PRIMARY KEY (id)
 );
@@ -45,10 +45,16 @@ CREATE TABLE team
 );
 
 ALTER TABLE game
-    ADD CONSTRAINT FK_GAME_ON_LOCAL_TEAM FOREIGN KEY (local_team_id) REFERENCES team (id);
+    ADD CONSTRAINT FK_GAME_ON_HOME_TEAM FOREIGN KEY (home_team_id) REFERENCES team (id);
 
 ALTER TABLE game
     ADD CONSTRAINT FK_GAME_ON_VISITOR_TEAM FOREIGN KEY (visitor_team_id) REFERENCES team (id);
 
 ALTER TABLE player
     ADD CONSTRAINT FK_PLAYER_ON_TEAM FOREIGN KEY (team_id) REFERENCES team (id);
+
+ALTER TABLE player
+    MODIFY COLUMN id CHAR(36) DEFAULT (UUID());
+
+ALTER TABLE game
+    MODIFY COLUMN id CHAR(36) DEFAULT (UUID());
