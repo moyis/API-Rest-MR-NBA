@@ -1,22 +1,22 @@
 CREATE TABLE game
 (
-    id                 BINARY(16)   NOT NULL,
+    id                 UUID   NOT NULL DEFAULT gen_random_uuid(),
     date               VARCHAR(255) NOT NULL,
     season             INT          NOT NULL,
     status             VARCHAR(255) NOT NULL,
-    `period`           INT          NOT NULL,
+    period           INT          NOT NULL,
     time               VARCHAR(255) NOT NULL,
-    postseason         BIT(1)       NOT NULL,
+    postseason         BOOLEAN       NOT NULL,
     home_team_score    INT          NOT NULL,
     visitor_team_score INT          NOT NULL,
-    home_team_id      BINARY(16)   NOT NULL,
-    visitor_team_id    BINARY(16)   NOT NULL,
+    home_team_id      UUID   NOT NULL,
+    visitor_team_id    UUID   NOT NULL,
     CONSTRAINT pk_game PRIMARY KEY (id)
 );
 
 CREATE TABLE player
 (
-    id            BINARY(16)   NOT NULL,
+    id            UUID   NOT NULL DEFAULT gen_random_uuid(),
     first_name    VARCHAR(255) NOT NULL,
     last_name     VARCHAR(255) NOT NULL,
     position      VARCHAR(255) NOT NULL,
@@ -28,13 +28,13 @@ CREATE TABLE player
     draft_year    INT          NOT NULL,
     draft_round   INT          NOT NULL,
     draft_number  INT          NOT NULL,
-    team_id       BINARY(16)   NOT NULL,
+    team_id       UUID   NOT NULL,
     CONSTRAINT pk_player PRIMARY KEY (id)
 );
 
 CREATE TABLE team
 (
-    id           BINARY(16)   NOT NULL,
+    id           UUID   NOT NULL DEFAULT gen_random_uuid(),
     abbreviation VARCHAR(255) NOT NULL,
     city         VARCHAR(255) NOT NULL,
     conference   VARCHAR(255) NOT NULL,
@@ -53,8 +53,6 @@ ALTER TABLE game
 ALTER TABLE player
     ADD CONSTRAINT FK_PLAYER_ON_TEAM FOREIGN KEY (team_id) REFERENCES team (id);
 
-ALTER TABLE player
-    MODIFY COLUMN id CHAR(36) DEFAULT (UUID());
 
-ALTER TABLE game
-    MODIFY COLUMN id CHAR(36) DEFAULT (UUID());
+
+
