@@ -1,6 +1,6 @@
 FROM gradle:jdk17-alpine AS build
 RUN mkdir /project
-COPY src /project
+COPY ./ /project
 WORKDIR /project
 RUN gradle clean build -x test
 
